@@ -36,9 +36,9 @@ fi
 
 # ── Brew packages ───────────────────────────────
 FORMULAS=(
-  starship atuin tmux helix yazi glow gitmux stow
-  fzf fd ripgrep zoxide kubecolor kube-ps1
-  zsh-autosuggestions zsh-syntax-highlighting tmux-mem-cpu-load
+  oh-my-posh zinit atuin tmux helix yazi glow gitmux stow
+  fzf fd bat ripgrep zoxide kubecolor kube-ps1
+  tmux-mem-cpu-load
 )
 CASKS=(ghostty)
 
@@ -73,7 +73,7 @@ backup_conflicts() {
   local backup_dir="$HOME/dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
   local count=0
 
-  for pkg in ghostty starship atuin tmux zsh helix yazi gitmux; do
+  for pkg in ghostty oh-my-posh atuin tmux zsh helix yazi gitmux; do
     [[ -d "$DOTFILES_DIR/$pkg" ]] || continue
     while IFS= read -r file; do
       # Derive the target path under $HOME
@@ -99,7 +99,7 @@ backup_conflicts() {
 backup_conflicts
 
 # ── Stow packages ───────────────────────────────
-STOW_PACKAGES=(ghostty starship atuin tmux zsh helix yazi gitmux)
+STOW_PACKAGES=(ghostty oh-my-posh atuin tmux zsh helix yazi gitmux)
 
 for pkg in "${STOW_PACKAGES[@]}"; do
   if [[ -d "$DOTFILES_DIR/$pkg" ]]; then
@@ -110,13 +110,8 @@ for pkg in "${STOW_PACKAGES[@]}"; do
   fi
 done
 
-# ── Oh My Zsh ───────────────────────────────────
-if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-  warn "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-else
-  info "Oh My Zsh already installed"
-fi
+# ── Zinit (loaded via Homebrew, no extra install needed) ──
+info "Zinit sourced via /opt/homebrew/opt/zinit/zinit.zsh"
 
 # ── TPM (tmux plugin manager) ──────────────────
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then

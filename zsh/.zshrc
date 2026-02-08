@@ -1,58 +1,74 @@
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git kubectl kube-ps1)
-source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
-PROMPT='$(kube_ps1)'$PROMPT
-
-source $ZSH/oh-my-zsh.sh
-
-# export PATHs
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# ── PATH exports ──────────────────────────────────────────────
 export PATH=/opt/homebrew/bin:$PATH
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/Users/vbongale/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
-# K8s auto-complete
-autoload -U +X compinit && compinit
-source <(kubectl completion zsh)
+# ── Zinit ─────────────────────────────────────────────────────
+declare -A ZINIT
+ZINIT[NO_ALIASES]=1
+source /opt/homebrew/opt/zinit/zinit.zsh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# OMZ snippets (git aliases & kubectl completions)
+zinit wait lucid for \
+  OMZP::git \
+  OMZP::kubectl
 
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
+# GitHub plugins — syntax-highlighting last, with completion init
+zinit wait lucid for \
+  light-mode zsh-users/zsh-autosuggestions \
+  light-mode atload"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-## [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-### Don't correct on these commands
+# ── History settings (Atuin handles search, sync & dedup) ────
+setopt SHARE_HISTORY             # Share native history between sessions (fallback)
+setopt HIST_IGNORE_SPACE         # Space-prefixed commands skip both Zsh & Atuin history
+
+# ── Aliases ───────────────────────────────────────────────────
 alias kubectl='nocorrect kubecolor'
 alias k='nocorrect kubecolor'
 
-setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+# ── Tool init ─────────────────────────────────────────────────
+eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin_mocha.omp.json)"
 
+# Blank line between commands, but not after clear or first prompt
+_prompt_spacing() {
+  if [[ -z "$_PROMPT_FIRST_RUN" ]]; then
+    _PROMPT_FIRST_RUN=1
+  else
+    echo
+  fi
+}
+precmd_functions+=(_prompt_spacing)
+clear() { command clear; _PROMPT_FIRST_RUN= }
+# ── FZF ───────────────────────────────────────────────────────
+# Use fd instead of find (respects .gitignore, faster)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-eval "$(starship init zsh)"
+# Catppuccin Mocha theme + layout
+export FZF_DEFAULT_OPTS=" \
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+  --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+  --color=selected-bg:#45475a \
+  --color=border:#6c7086,label:#cdd6f4 \
+  --height=60% --layout=reverse --border=rounded \
+  --prompt='  ' --pointer='▎' --marker='✓ ' \
+  --preview-window='right:50%:border-left' \
+  --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
+  --bind='ctrl-y:execute-silent(echo -n {+} | pbcopy)+abort' \
+"
+
+# Ctrl-T: file search with bat preview
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :300 {} 2>/dev/null || cat {}'"
+
+# Alt-C: directory search with tree preview
+export FZF_ALT_C_OPTS="--preview 'ls -la --color=always {} | head -50'"
+
+eval "$(fzf --zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init zsh)"
-
-# Added by Antigravity
-export PATH="/Users/vbongale/.antigravity/antigravity/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
