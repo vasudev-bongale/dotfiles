@@ -51,6 +51,7 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 eval "$(starship init zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(zoxide init zsh)"
 
 # Added by Antigravity
 export PATH="/Users/vbongale/.antigravity/antigravity/bin:$PATH"
