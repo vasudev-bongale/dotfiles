@@ -1,0 +1,14 @@
+[[plugin.deps]]
+use = "Reledia/glow"
+rev = "bd3eaa5"
+hash = "92b5c58159a51c567f82b618cee2b78"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "88990a6"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "9e053d0"
+hash = "5012313d6cf071c5f30a9d5c4be3655e"

@@ -1,0 +1,27 @@
+theme = "catppuccin_mocha"
+
+[editor]
+color-modes = true
+line-number = "relative"
+completion-timeout = 5
+end-of-line-diagnostics = "hint"
+
+
+[editor.soft-wrap]
+enable = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 1000
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
