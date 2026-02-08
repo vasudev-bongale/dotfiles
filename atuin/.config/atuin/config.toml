@@ -15,12 +15,14 @@ show_tabs = false
 auto_sync = false
 update_check = false
 
-# Privacy — filter secrets and noisy commands from history
+# Privacy — filter secrets from history
 secrets_filter = true
 history_filter = [
   "^export .*SECRET",
   "^export .*TOKEN",
   "^export .*PASSWORD",
+  "^clear$",
+  "^ls$",
 ]
 
 [sync]
