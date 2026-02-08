@@ -1,0 +1,96 @@
+# ────────────────────────────────────────────
+# Starship — Catppuccin Mocha
+# ────────────────────────────────────────────
+
+add_newline = true
+palette = "catppuccin_mocha"
+
+format = """
+$directory$git_branch$git_status$kubernetes$env_var_CLAUDECODE$cmd_duration$time
+$character"""
+
+# ── Directory ──────────────────────────────
+[directory]
+style = "bold fg:peach"
+truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " "
+format = "[ $path]($style) "
+
+# ── Git ────────────────────────────────────
+[git_branch]
+symbol = ""
+style = "fg:green"
+format = "[$symbol $branch]($style) "
+
+[git_status]
+style = "fg:overlay0"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = ""
+staged     = ""
+modified   = ""
+deleted    = ""
+untracked  = ""
+ahead      = "⇡${count}"
+behind     = "⇣${count}"
+
+# ── Kubernetes ─────────────────────────────
+[kubernetes]
+disabled = false
+symbol = "⎈"
+style = "fg:sapphire"
+format = "[$symbol $context(\\($namespace\\))]($style) "
+
+contexts = [
+    { context_pattern = "^prod-.*", style = "bold fg:red" },
+    { context_pattern = "^ei.*", style = "fg:green" },
+    { context_pattern = "^corp-.*", style = "fg:yellow" },
+]
+
+# ── Claude Code ────────────────────────────
+[env_var.CLAUDECODE]
+variable = "CLAUDECODE"
+symbol = "🤖"
+style = "fg:lavender"
+format = "[$symbol]($style) "
+
+# ── Command Duration ──────────────────────
+[cmd_duration]
+min_time = 1000
+style = "fg:yellow"
+format = "[ $duration]($style) "
+
+# ── Time ───────────────────────────────────
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "fg:surface2"
+format = "[ $time]($style)"
+
+# ── Prompt Character ──────────────────────
+[character]
+success_symbol = "[❯](bold fg:teal)"
+error_symbol   = "[❯](bold fg:red)"
+vimcmd_symbol  = "[❮](bold fg:teal)"
+
+# ────────────────────────────────────────────
+# Catppuccin Mocha palette
+# ────────────────────────────────────────────
+[palettes.catppuccin_mocha]
+base     = "#1e1e2e"
+mantle   = "#181825"
+crust    = "#11111b"
+surface0 = "#313244"
+surface1 = "#45475a"
+surface2 = "#585b70"
+overlay0 = "#6c7086"
+text     = "#cdd6f4"
+peach    = "#fab387"
+green    = "#a6e3a1"
+teal     = "#94e2d5"
+sapphire = "#74c7ec"
+red      = "#f38ba8"
+lavender = "#b4befe"
+yellow   = "#f9e2af"
+mauve    = "#cba6f7"

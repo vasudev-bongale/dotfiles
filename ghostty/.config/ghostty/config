@@ -1,0 +1,19 @@
+# Theme
+theme = Catppuccin Mocha
+
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-size = 19
+
+# Window
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+
+# Behavior
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+confirm-close-surface = false
+unfocused-split-opacity = 0.50
