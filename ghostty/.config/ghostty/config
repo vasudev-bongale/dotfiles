@@ -11,9 +11,13 @@ macos-option-as-alt = true
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
+maximize = true
 
 # Behavior
 copy-on-select = clipboard
 mouse-hide-while-typing = true
 confirm-close-surface = false
 unfocused-split-opacity = 0.50
+
+# Keybindings
+keybind = super+grave_accent=toggle_quick_terminal

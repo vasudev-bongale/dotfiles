@@ -1,8 +1,6 @@
 # ── PATH exports ──────────────────────────────────────────────
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/Users/vbongale/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -11,8 +9,8 @@ declare -A ZINIT
 ZINIT[NO_ALIASES]=1
 source /opt/homebrew/opt/zinit/zinit.zsh
 
-# OMZ snippets (git aliases & kubectl completions)
-zinit wait lucid for \
+# OMZ snippets (loaded synchronously for Warp autocompletion)
+zinit lucid for \
   OMZP::git \
   OMZP::kubectl
 
@@ -29,6 +27,9 @@ setopt HIST_IGNORE_SPACE         # Space-prefixed commands skip both Zsh & Atuin
 # ── Aliases ───────────────────────────────────────────────────
 alias kubectl='nocorrect kubecolor'
 alias k='nocorrect kubecolor'
+alias hh='atuin search -i'
+alias ccusage='npx ccusage@latest'
+q() { claude --model sonnet -p "$*" | glow; }
 
 # ── Tool init ─────────────────────────────────────────────────
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin_mocha.omp.json)"
@@ -72,3 +73,5 @@ export FZF_ALT_C_OPTS="--preview 'ls -la --color=always {} | head -50'"
 eval "$(fzf --zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init zsh)"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

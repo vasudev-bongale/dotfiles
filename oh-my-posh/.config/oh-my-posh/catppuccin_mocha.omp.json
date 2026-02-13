@@ -1,92 +1,60 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "base": "#1e1e2e",
-    "surface0": "#313244",
-    "surface1": "#45475a",
-    "overlay0": "#6c7086",
-    "text": "#cdd6f4",
-    "pink": "#F5C2E7",
-    "mauve": "#cba6f7",
-    "lavender": "#B4BEFE",
-    "blue": "#89B4FA",
-    "sapphire": "#74c7ec",
-    "green": "#A6E3A1",
-    "peach": "#FAB387",
-    "red": "#f38ba8",
-    "teal": "#94E2D5",
-    "yellow": "#f9e2af",
-    "flamingo": "#f2cdcd",
-    "rosewater": "#f5e0dc"
+    "pink": "#f5c2e7",
+    "lavender": "#b4befe",
+    "rosewater": "#f5e0dc",
+    "teal": "#94e2d5",
+    "peach": "#fab387",
+    "overlay": "#6c7086",
+    "green": "#a6e3a1",
+    "red": "#f38ba8"
   },
   "blocks": [
     {
       "alignment": "left",
       "segments": [
         {
-          "foreground": "p:base",
-          "background": "p:rosewater",
-          "style": "diamond",
-          "leading_diamond": "\ue0b6",
-          "trailing_diamond": "\ue0b4",
-          "template": " {{ .CurrentDate | date .Format }} ",
+          "foreground": "p:rosewater",
+          "style": "plain",
+          "template": "{{ .CurrentDate | date .Format }} ",
           "type": "time",
           "options": {
             "time_format": "3:04 PM"
           }
         },
         {
-          "foreground": "p:base",
-          "background": "p:lavender",
-          "style": "diamond",
-          "leading_diamond": " \ue0b6",
-          "trailing_diamond": "\ue0b4",
-          "template": " \ue641 {{ .Path }} ",
+          "foreground": "p:pink",
+          "style": "plain",
+          "template": "{{ .Path }} ",
           "type": "path",
           "options": {
-            "folder_icon": "\uf07b",
-            "home_icon": "\uf015",
+            "home_icon": "~",
             "style": "agnoster_short",
             "max_depth": 3
           }
         },
         {
-          "foreground": "p:base",
-          "background": "p:pink",
-          "style": "diamond",
-          "leading_diamond": " \ue0b6",
-          "trailing_diamond": "\ue0b4",
-          "template": " {{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+          "foreground": "p:lavender",
+          "style": "plain",
+          "template": "{{ .HEAD }} ",
           "type": "git",
           "options": {
             "branch_icon": "\ue725 ",
-            "cherry_pick_icon": "\ue29b ",
-            "commit_icon": "\uf417 ",
-            "fetch_status": true,
-            "fetch_upstream_icon": false,
-            "merge_icon": "\ue727 ",
-            "no_commits_icon": "\uf0c3 ",
-            "rebase_icon": "\ue728 ",
-            "revert_icon": "\uf0e2 ",
-            "tag_icon": "\uf412 "
+            "fetch_status": false,
+            "fetch_upstream_icon": false
           }
         },
         {
-          "foreground": "p:base",
-          "background": "p:teal",
-          "style": "diamond",
-          "leading_diamond": " \ue0b6",
-          "trailing_diamond": "\ue0b4",
-          "template": " \udb84\udcfe {{ .Context }}{{ if .Namespace }}:{{ .Namespace }}{{ end }} ",
+          "foreground": "p:teal",
+          "style": "plain",
+          "template": "\udb84\udcfe {{ .Context }}{{ if .Namespace }}:{{ .Namespace }}{{ end }} ",
           "type": "kubectl"
         },
         {
-          "foreground": "p:base",
-          "background": "p:peach",
-          "style": "diamond",
-          "leading_diamond": " \ue0b6",
-          "trailing_diamond": "\ue0b4",
-          "template": " \uf252 {{ .FormattedMs }} ",
+          "foreground": "p:peach",
+          "style": "plain",
+          "template": "\uf252 {{ .FormattedMs }} ",
           "type": "executiontime",
           "options": {
             "threshold": 2000,
@@ -118,7 +86,7 @@
   ],
   "final_space": true,
   "secondary_prompt": {
-    "foreground": "p:overlay0",
+    "foreground": "p:overlay",
     "template": "❯❯ "
   },
   "version": 4

@@ -73,7 +73,7 @@ backup_conflicts() {
   local backup_dir="$HOME/dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
   local count=0
 
-  for pkg in ghostty oh-my-posh atuin tmux zsh helix yazi gitmux; do
+  for pkg in ghostty oh-my-posh atuin tmux zsh helix yazi gitmux claude; do
     [[ -d "$DOTFILES_DIR/$pkg" ]] || continue
     while IFS= read -r file; do
       # Derive the target path under $HOME
@@ -99,7 +99,7 @@ backup_conflicts() {
 backup_conflicts
 
 # ── Stow packages ───────────────────────────────
-STOW_PACKAGES=(ghostty oh-my-posh atuin tmux zsh helix yazi gitmux)
+STOW_PACKAGES=(ghostty oh-my-posh atuin tmux zsh helix yazi gitmux claude)
 
 for pkg in "${STOW_PACKAGES[@]}"; do
   if [[ -d "$DOTFILES_DIR/$pkg" ]]; then

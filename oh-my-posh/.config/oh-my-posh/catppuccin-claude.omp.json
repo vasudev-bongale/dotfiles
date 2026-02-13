@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "background": "#94e2d5",
+          "foreground": "#11111b",
+          "template": " {{ .SessionID }} "
+        },
+        {
+          "type": "claude",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#b4befe",
+          "foreground": "#11111b",
+          "template": " \uf0e7 {{ .Model.DisplayName }} "
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#313244",
+          "foreground": "#cdd6f4",
+          "properties": {
+            "style": "folder"
+          },
+          "template": " \uf07b {{ .Path }} "
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#a6e3a1",
+          "foreground": "#11111b",
+          "properties": {
+            "fetch_status": true
+          },
+          "template": " \ue725 {{ .HEAD }}{{if .BranchStatus}} {{ .BranchStatus }}{{ end }} "
+        },
+        {
+          "type": "claude",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#f9e2af",
+          "foreground": "#11111b",
+          "template": " \uf1c0 {{ .FormattedTokens }} ({{ .TokenUsagePercent.String }}%) "
+        },
+        {
+          "type": "claude",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#f5c2e7",
+          "foreground": "#11111b",
+          "trailing_diamond": "\ue0b4",
+          "template": " \uf155 {{ .FormattedCost }} "
+        }
+      ]
+    }
+  ]
+}
