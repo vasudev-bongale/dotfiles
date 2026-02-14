@@ -15,35 +15,10 @@
       "alignment": "left",
       "segments": [
         {
-          "foreground": "p:rosewater",
+          "foreground": "p:overlay",
           "style": "plain",
-          "template": "{{ .CurrentDate | date .Format }} ",
-          "type": "time",
-          "options": {
-            "time_format": "3:04 PM"
-          }
-        },
-        {
-          "foreground": "p:pink",
-          "style": "plain",
-          "template": "{{ .Path }} ",
-          "type": "path",
-          "options": {
-            "home_icon": "~",
-            "style": "agnoster_short",
-            "max_depth": 3
-          }
-        },
-        {
-          "foreground": "p:lavender",
-          "style": "plain",
-          "template": "{{ .HEAD }} ",
-          "type": "git",
-          "options": {
-            "branch_icon": "\ue725 ",
-            "fetch_status": false,
-            "fetch_upstream_icon": false
-          }
+          "template": "\u256d\u2500",
+          "type": "text"
         },
         {
           "foreground": "p:teal",
@@ -52,9 +27,31 @@
           "type": "kubectl"
         },
         {
+          "foreground": "p:pink",
+          "style": "plain",
+          "template": "\uf07c {{ .Path }} ",
+          "type": "path",
+          "options": {
+            "home_icon": "\uf015 ",
+            "style": "agnoster_short",
+            "max_depth": 3
+          }
+        },
+        {
+          "foreground": "p:lavender",
+          "style": "plain",
+          "template": "\ue725 {{ .HEAD }}{{ if .Working.Changed }} \uf040 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+          "type": "git",
+          "options": {
+            "branch_icon": "",
+            "fetch_status": true,
+            "fetch_upstream_icon": false
+          }
+        },
+        {
           "foreground": "p:peach",
           "style": "plain",
-          "template": "\uf252 {{ .FormattedMs }} ",
+          "template": "\uf253 {{ .FormattedMs }} ",
           "type": "executiontime",
           "options": {
             "threshold": 2000,
@@ -65,8 +62,39 @@
       "type": "prompt"
     },
     {
+      "alignment": "right",
+      "overflow": "hide",
+      "segments": [
+        {
+          "foreground": "p:overlay",
+          "style": "plain",
+          "template": "\uf073  {{ .CurrentDate | date .Format }}",
+          "type": "time",
+          "options": {
+            "time_format": "Mon Jan 2"
+          }
+        },
+        {
+          "foreground": "p:overlay",
+          "style": "plain",
+          "template": "  \uf017  {{ .CurrentDate | date .Format }}",
+          "type": "time",
+          "options": {
+            "time_format": "3:04 PM"
+          }
+        }
+      ],
+      "type": "prompt"
+    },
+    {
       "alignment": "left",
       "segments": [
+        {
+          "foreground": "p:overlay",
+          "style": "plain",
+          "template": "\u2570\u2500",
+          "type": "text"
+        },
         {
           "foreground": "p:green",
           "foreground_templates": [
