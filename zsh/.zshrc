@@ -1,8 +1,14 @@
 # ── PATH exports ──────────────────────────────────────────────
 export PATH=/opt/homebrew/bin:$PATH
+export PATH="$HOME/go/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="/Users/vbongale/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+## Environment
+export EDITOR="/opt/homebrew/bin/hx"
 
 # ── Zinit ─────────────────────────────────────────────────────
 declare -A ZINIT
@@ -25,8 +31,8 @@ setopt SHARE_HISTORY             # Share native history between sessions (fallba
 setopt HIST_IGNORE_SPACE         # Space-prefixed commands skip both Zsh & Atuin history
 
 # ── Aliases ───────────────────────────────────────────────────
-alias kubectl='nocorrect kubecolor'
-alias k='nocorrect kubecolor'
+alias kubectl='kubecolor'
+alias k='kubecolor'
 alias hh='atuin search -i'
 alias ccusage='npx ccusage@latest'
 q() { claude --model sonnet -p "$*" | glow; }
@@ -34,16 +40,9 @@ q() { claude --model sonnet -p "$*" | glow; }
 # ── Tool init ─────────────────────────────────────────────────
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin_mocha.omp.json)"
 
-# Blank line between commands, but not after clear or first prompt
-_prompt_spacing() {
-  if [[ -z "$_PROMPT_FIRST_RUN" ]]; then
-    _PROMPT_FIRST_RUN=1
-  else
-    echo
-  fi
-}
-precmd_functions+=(_prompt_spacing)
-clear() { command clear; _PROMPT_FIRST_RUN= }
+# Precommand
+precmd() { print "" }
+
 # ── FZF ───────────────────────────────────────────────────────
 # Use fd instead of find (respects .gitignore, faster)
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
@@ -73,5 +72,7 @@ export FZF_ALT_C_OPTS="--preview 'ls -la --color=always {} | head -50'"
 eval "$(fzf --zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init zsh)"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Fx - CLI for JSON configurations
+export FX_SHOW_SIZE=true
+export FX_LINE_NUMBERS=true 

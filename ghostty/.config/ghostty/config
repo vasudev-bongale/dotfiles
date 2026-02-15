@@ -21,3 +21,6 @@ unfocused-split-opacity = 0.50
 
 # Keybindings
 keybind = super+grave_accent=toggle_quick_terminal
+
+# Cell Height
+adjust-cell-height = +20%
